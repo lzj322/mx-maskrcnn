@@ -1,5 +1,5 @@
 import argparse
-
+import os
 import mxnet as mx
 
 from rcnn.config import config, default, generate_config
@@ -22,10 +22,11 @@ def parse_args():
     parser.add_argument('--gpu', help='GPU device to test with', default=0, type=int)
     # rcnn
     parser.add_argument('--vis', help='turn on visualization', action='store_true')
-    parser.add_argument('--thresh', help='valid detection threshold', default=1e-3, type=float)
+    parser.add_argument('--thresh', help='valid detection threshold', default=0.65, type=float)
     parser.add_argument('--shuffle', help='shuffle data on visualization', action='store_true')
     parser.add_argument('--has_rpn', help='generate proposals on the fly', action='store_true')
     parser.add_argument('--proposal', help='can be ss for selective search or rpn', default='rpn', type=str)
+    parser.add_argument('--det_save_file', help='file path to save detection results', default=None)
     args = parser.parse_args()
     return args
 
@@ -33,9 +34,11 @@ def main():
     args = parse_args()
     ctx = mx.gpu(args.gpu)
     print args
+    print args.image_set
+    det_save_file = os.path.join(args.det_save_file,'MOT16-{}'.format(args.image_set.split('_')[-1]))
     demo_maskrcnn(args.network, args.dataset, args.image_set, args.root_path, args.dataset_path, args.result_path,
                 ctx, args.prefix, args.epoch,
-                args.vis, args.shuffle, args.has_rpn, args.proposal, args.thresh)
+                args.vis, args.shuffle, args.has_rpn, args.proposal, args.thresh, det_save_file=det_save_file)
 
 if __name__ == '__main__':
     main()
