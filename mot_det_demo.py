@@ -10,6 +10,7 @@ def parse_args():
     parser.add_argument('--network', help='network name', default=default.network, type=str)
     parser.add_argument('--dataset', help='dataset name', default=default.dataset, type=str)
     args, rest = parser.parse_known_args()
+    print(args.dataset)
     generate_config(args.network, args.dataset)
     parser.add_argument('--image_set', help='image_set name', default=default.test_image_set, type=str)
     parser.add_argument('--root_path', help='output data folder', default=default.root_path, type=str)
@@ -39,7 +40,9 @@ def main():
             print "============= {}: MOT17-{} ================".format(dataset_type, str(dataset_name_idx).zfill(2))
             image_set = 'MOT17_{}'.format(str(dataset_name_idx).zfill(2))
             result_path='data/MOT/results/{}'.format(image_set)
-            det_save_file = os.path.join('data/MOT_det_results/{}/MOT17-{}'.format(dataset_type,str(dataset_name_idx).zfill(2)))
+            det_save_file = os.path.join('data/MOT/MOT_det_results/{}/MOT17-{}'.format(dataset_type,str(dataset_name_idx).zfill(2)))
+            if not os.path.exists(det_save_file):
+                os.makedirs(det_save_file)
             if os.path.exists(det_save_file+'/maskrcnn_det.txt'):
                 os.remove(det_save_file+'/maskrcnn_det.txt')
             demo_maskrcnn(args.network, args.dataset, image_set, args.root_path, args.dataset_path, result_path,
