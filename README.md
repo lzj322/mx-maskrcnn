@@ -34,6 +34,8 @@ Ubuntu 16.04, Python 2.7 with
 
 numpy(1.12.1), cv2(2.4.9), PIL(4.3), matplotlib(2.1.0), cython(0.26.1), easydict
 
+> Here I used conda install for numpy, opencv, PIL, matplotlib, cython, 
+then pip install easydict
 ## Preparation for Training
 
 1. Download Cityscapes data (gtFine_trainvaltest.zip, leftImg8bit_trainvaltest.zip). Extract them into 'data/cityscape/'.
@@ -61,6 +63,7 @@ data/cityscape/
 bash scripts/download_res50.sh
 
 ```
+> Actually download model in BaiduYun named final-0000.params
 
 3. Build MXNet with ROIAlign operator.
 
@@ -69,6 +72,9 @@ cp rcnn/CXX_OP/* incubator-mxnet/src/operator/
 ```
 
 To build MXNet from source, please refer to the [tutorial](https://mxnet.incubator.apache.org/get_started/build_from_source.html).
+
+>this tutorial is not complete for conda. If your use conda, refer to [blog](http://www.jianshu.com/p/e1b10ead6966).
+
 
 4. Build related cython code.
 
