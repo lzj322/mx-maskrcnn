@@ -7,7 +7,7 @@ MODEL_PATH=model/
 RESULT_PATH=data/MOT/results/
 
 PREFIX=${MODEL_PATH}final
-DATASET=MOT
+DATASET=Mot
 SET=train
 TEST_SET=val
 
